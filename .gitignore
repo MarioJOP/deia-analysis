@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env/
+
+# Environment variables
+.env
+.env.*
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# PyTorch / model weights
+*.pt
+*.pth
+*.bin
+*.safetensors
+
+# HuggingFace cache
+~/.cache/huggingface/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.swp
