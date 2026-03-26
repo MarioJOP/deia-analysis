@@ -28,6 +28,7 @@ It also evaluates how different prompting strategies affect LLM performance when
 - **PANDEIA dataset** (IS_DEIA = Yes): **700 posts**
 - **Annotation**: Each post independently reviewed by 2 annotators; disagreements resolved by a 3rd annotator (15 volunteers total)
 - **Labels**: Polarization (Pro-DEIA / Anti-DEIA / Neutral), Subthemes (multi-label: Gender, Race, LGBTQIA+, Disability, None), and metadata
+- **Note**: Due to Reddit's Terms of Service, the columns `Title`, `Text`, and `Author` are **not distributed** in this repository. See [Recovering post content](#recovering-post-content-from-reddit) below for instructions on how to retrieve them.
 
 | Subreddit | Description |
 |---|---|
@@ -85,7 +86,42 @@ source venv/bin/activate  # On Windows use: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### 4. Pull the models via Ollama
+### 4. Recovering post content from Reddit
+
+Due to Reddit's Terms of Service, the columns `Title`, `Text`, and `Author` are not included in the distributed dataset. The file `llm_results_public/PANDEIA_DATASET.csv` contains only the metadata columns (`ID`, `Date`, `Subreddit`, `Permalink`, `Score`, `num_comment`).
+
+To run `Run_LLMs.ipynb`, you must enrich this file with the post content by re-collecting it from Reddit using [PRAW](https://praw.readthedocs.io/). Use the `ID` column (Reddit post ID) and the `Subreddit` column to fetch each post:
+
+```python
+import praw
+import pandas as pd
+
+reddit = praw.Reddit(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+    user_agent="YOUR_USER_AGENT"
+)
+
+df = pd.read_csv("llm_results_public/PANDEIA_DATASET.csv")
+
+def fetch_post(row):
+    try:
+        submission = reddit.submission(id=row["ID"])
+        return pd.Series({
+            "Title": submission.title,
+            "Text": submission.selftext,
+            "Author": str(submission.author)
+        })
+    except Exception:
+        return pd.Series({"Title": None, "Text": None, "Author": None})
+
+df[["Title", "Text", "Author"]] = df.apply(fetch_post, axis=1)
+df.to_csv("llm_results_public/PANDEIA_DATASET.csv", index=False)
+```
+
+> **Note**: Some posts may have been deleted or removed since data collection. In those cases, `Text` will be `None` or `[deleted]` — the LLM pipeline handles these gracefully.
+
+### 5. Pull the models via Ollama
 
 ```bash
 ollama pull deepseek-r1:7b
@@ -96,7 +132,7 @@ ollama pull qwen2.5-coder:3b
 ollama pull falcon3:3b
 ```
 
-### 5. Run the notebooks
+### 6. Run the notebooks
 
 Open the notebooks in order using Jupyter:
 
