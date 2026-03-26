@@ -176,8 +176,8 @@ For environments without GPU access, the following CPU-optimized models are avai
 ```
 DEIA_analysis/
 ├── llm_results_public/                        # PANDEIA dataset and raw LLM outputs (CSV/XLSX)
-│   ├── PANDEIA_DATASET_ManualLabeling_Final.csv
-│   └── PANDEIA_RESULTS_<Model>_<strategy>.csv
+│   ├── PANDEIA_Manual_Labeling_Final.csv
+│   └── PANDEIA_RESULTS_<Model>.csv
 ├── results/
 │   ├── polarization/                   # Polarization evaluation results per model/strategy
 │   │   ├── zeroshot/<Model>_evaluation/
@@ -189,7 +189,7 @@ DEIA_analysis/
 │   │   └── fewshot/<Model>_evaluation/
 │   └── json_problems/                  # Posts with invalid/unparseable LLM outputs
 ├── figures/                            # Generated plots and visualizations
-├── Run_LLMs.ipynb                      # LLM inference pipeline (all models × all strategies)
+├── Run_LLMs.ipynb                      # LLM inference pipeline
 ├── RQ1_polarization_analysis.ipynb     # RQ1: polarization distribution analysis
 ├── RQ2_1_subthemes_analysis            # eda and visualizations for rq2
 ├── RQ2_2_subthemes_analysis.ipynb      # RQ2: DEIA subtheme analysis
@@ -202,4 +202,7 @@ DEIA_analysis/
 
 ## 📜 License
 
-> **TODO**: Add license information here.
+This repository uses two licenses depending on the type of content:
+
+- **Code** (notebooks, scripts): [MIT License](LICENCE-CODE.txt) — Copyright (c) 2026 JOANNE CARNEIRO
+- **Dataset** (PANDEIA, `llm_results_public/`): [Creative Commons Attribution 4.0 International](LICENSE-DATASET.txt)
