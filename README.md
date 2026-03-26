@@ -139,7 +139,7 @@ For environments without GPU access, the following CPU-optimized models are avai
 
 ```
 DEIA_analysis/
-├── llm_results/                        # PANDEIA dataset and raw LLM outputs (CSV/XLSX)
+├── llm_results_public/                        # PANDEIA dataset and raw LLM outputs (CSV/XLSX)
 │   ├── PANDEIA_DATASET_ManualLabeling_Final.csv
 │   └── PANDEIA_RESULTS_<Model>_<strategy>.csv
 ├── results/
