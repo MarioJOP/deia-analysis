@@ -23,7 +23,7 @@ It also evaluates how different prompting strategies affect LLM performance when
 
 ### 📦 Dataset — PANDEIA
 
-- **Source**: 5 technology-related subreddits collected via [PRAW](https://praw.readthedocs.io/) (Python Reddit API Wrapper)
+- **Source**: 4 technology-related subreddits collected via [PRAW](https://praw.readthedocs.io/) (Python Reddit API Wrapper)
 - **Total posts annotated**: 1,017
 - **PANDEIA dataset** (IS_DEIA = Yes): **700 posts**
 - **Annotation**: Each post independently reviewed by 2 annotators; disagreements resolved by a 3rd annotator (15 volunteers total)
