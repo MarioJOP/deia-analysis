@@ -69,6 +69,48 @@ The prompts are defined in the [`prompts`](prompts) folder, organized by task:
 | [`prompts/subthemes/oneshot.txt`](prompts/subthemes/oneshot.txt) | Subthemes | One-shot |
 | [`prompts/subthemes/fewshot.txt`](prompts/subthemes/fewshot.txt) | Subthemes | Few-shot |
 
+## 📂 Data & Results
+
+### 🗂️ PANDEIA Dataset
+
+The human-annotated ground truth is located at [`llm_results_public/PANDEIA_Manual_Labeling_Final.csv`](llm_results_public/PANDEIA_Manual_Labeling_Final.csv).
+
+It contains **700 DEIA-related posts** with the following columns:
+
+| Column | Description |
+|---|---|
+| `ID` | Reddit post ID |
+| `Date` | Post date |
+| `Subreddit` | Source subreddit |
+| `Url` | Permalink to the original post |
+| `Score` | Reddit score (upvotes) |
+| `num_comment` | Number of comments |
+| `IS_DEIA?` | Whether the post is DEIA-related |
+| `Agreement_Polarization` | Consensus label: Pro-DEIA / Anti-DEIA / Neutral |
+| `Agreement_Subthemes` | Consensus subtheme(s): Gender, Race, LGBTQIA+, Disability, None |
+| `Keywords` | Keywords extracted during annotation |
+| `confidence level` | Annotator confidence (1–5) |
+| `Justification` | Annotator justification for the label |
+
+> **Note**: The columns `Title`, `Text`, and `Author` are **not distributed** due to Reddit's Terms of Service. See [Recovering post content](#recovering-post-content-from-reddit) for instructions on how to retrieve them.
+
+### 🤖 LLM Outputs
+
+The raw classification outputs produced by each model are available in [`llm_results_public/`](llm_results_public/) and can be reused in future studies without re-running the inference pipeline:
+
+| File | Model |
+|---|---|
+| [`PANDEIA_RESULTS_Deepseek.csv`](llm_results_public/PANDEIA_RESULTS_Deepseek.csv) | DeepSeek-R1 7B |
+| [`PANDEIA_RESULTS_Falcon3.csv`](llm_results_public/PANDEIA_RESULTS_Falcon3.csv) | Falcon3 3B |
+| [`PANDEIA_RESULTS_Llama.csv`](llm_results_public/PANDEIA_RESULTS_Llama.csv) | LLaMA 3.1 8B |
+| [`PANDEIA_RESULTS_Mistral.csv`](llm_results_public/PANDEIA_RESULTS_Mistral.csv) | Mistral 7B |
+| [`PANDEIA_RESULTS_Phi3.csv`](llm_results_public/PANDEIA_RESULTS_Phi3.csv) | Phi3-Mini |
+| [`PANDEIA_RESULTS_Qwen.csv`](llm_results_public/PANDEIA_RESULTS_Qwen.csv) | Qwen2.5-Coder 3B |
+
+Each file contains the model's predicted polarization and subtheme labels for all prompting strategies (zero-shot, one-shot, few-shot), aligned with the post IDs in the PANDEIA dataset.
+
+---
+
 ## 💻 Installation & Usage
 
 ### ✅ Requirements
