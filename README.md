@@ -47,7 +47,7 @@ All models were run locally via [Ollama](https://ollama.com):
 | [mistral:7b](https://ollama.com/library/mistral) | 7.25B | 4.4 GB | — |
 | [Llama-3.1-8B-Instruct](https://ollama.com/library/llama3.1) | 8.03B | 16 GB | BF16 |
 | [gurubot/phi3-mini-abliterated:q4](https://ollama.com/gurubot/phi3-mini-abliterated:q4) | 3.82B | 2.4 GB | Q4_K_M |
-| [qwen2.5-coder-3b-instruct-q6_k](https://ollama.com/library/qwen2.5-coder) | 3.4B | 2.8 GB | Q6_K |
+| [qwen2.5-coder:3b-instruct-q6_K](https://ollama.com/library/qwen2.5-coder:7b-instruct-q6_K) | 3.4B | 2.8 GB | Q6_K |
 | [falcon3:3b](https://ollama.com/library/falcon3) | 3.23B | 2.0 GB | Q4_K_M |
 
 ### 💬 Prompting Strategies
