@@ -35,7 +35,6 @@ It also evaluates how different prompting strategies affect LLM performance when
 | womenintech | Inclusive space for women in tech (technical and non-technical roles) |
 | cscareerquestions | Career development and industry challenges for CS professionals |
 | girlsgonewired | Women in technology sharing professional experiences |
-| technology | Technological developments and societal impact |
 | ExperiencedDevs | Experienced software engineers discussing advanced career topics |
 
 ### 🤖 Models
