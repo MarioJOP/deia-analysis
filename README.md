@@ -192,7 +192,7 @@ DEIA_analysis/
 ├── Run_LLMs.ipynb                      # LLM inference pipeline (all models × all strategies)
 ├── RQ1_polarization_analysis.ipynb     # RQ1: polarization distribution analysis
 ├── RQ2_1_subthemes_analysis            # eda and visualizations for rq2
-├── RQ2_2_subthemes_analysis.ipynb        # RQ2: DEIA subtheme analysis
+├── RQ2_2_subthemes_analysis.ipynb      # RQ2: DEIA subtheme analysis
 ├── RQ3_temporal_analysis.ipynb         # RQ3: temporal discourse evolution
 ├── requirements.txt                    # Python dependencies
 └── README.md
