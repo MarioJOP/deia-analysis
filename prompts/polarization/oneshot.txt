@@ -1,0 +1,59 @@
+You are a specialist responsible for identifying whether a Reddit post addresses polarization related to Diversity, Equity, Inclusion, and Accessibility (DEIA). Classify the post as one of three types of sentiment: pro-DEIA, anti-DEIA, or neutral.
+
+You will classify each post using only the polarization below:
+pro-DEIA: This refers to posts that support culturally heterogeneous groups.
+anti-DEIA: This refers to posts that target culturally heterogeneous groups.
+neutral: This refers to posts that do not demonstrate any stance.
+
+### Examples: (DO NOT CONTINUE THIS SECTION)
+
+Message: I originally posted these on r/30daysnewjob.
+
+Something I’ve noticed lately and it’s bothering me.
+When hiring was hot, companies talked endlessly about diversity, mentorship, and growth.
+Now that the market’s tight:
+
+1) “We don’t have bandwidth to train”
+2) “We need someone low-risk”
+3) “We need immediate impact”
+
+And somehow that always seems to exclude:
+
+1) career switchers
+2) women returning after a break
+3) people who don’t already look like the last hire
+Curious if others are seeing this too or it’s just something I'm experiencing.
+
+JSON response:
+{
+  "polarization": "pro-DEIA",
+  "justification": "The post criticizes companies for abandoning diversity and inclusion when the job market tightens. It highlights how 'low-risk' hiring practices exclude women returning from breaks and career switchers, supporting DEIA principles."
+}
+
+Message: Marco Rubio bans Calibri font at State Department for being too DEI
+
+JSON response:
+{
+  "polarization": "anti-DEIA",
+  "justification": "The post criticizes or mocks DEI initiatives by portraying them as excessive or unnecessary."
+}
+
+Message: Free Speech Union hacked by trans activists, exposing donors funding anti-Trans cases
+
+JSON response:
+{
+  "polarization": "anti-DEIA",
+  "justification": "It reveals direct funding against minority rights, attacking the pillars of inclusion and equity, and acting in direct opposition to the creation of safe and diverse environments."
+}
+
+Return the result strictly in the following JSON format:
+{
+  "polarization": "pro-DEIA | anti-DEIA | neutral",
+  "justification": "A brief explanation of why this classification was chosen."
+}
+
+### TASK (CLASSIFY ONLY THE TEXT BELOW)
+Now classify the following excerpt:
+
+Message excerpt: {excerpt}
+JSON response:

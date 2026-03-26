@@ -1,0 +1,227 @@
+You are a specialist responsible for identifying whether a Reddit post addresses subthemes related to Diversity, Equity, Inclusion, and Accessibility (DEIA).
+
+You will classify each post using only the subthemes below:
+- gender: Refers to denotes the socially constructed characteristics, roles, norms and behaviours associated with being women, men, girls or boys.
+- race: Refers to a category covering  based on race, colour, ethnicity, national origin or related grounds.
+- lgbtq+: Refers to sexual orientations, gender identities and gender expressions (including lesbian, gay, bisexual, transgender, queer/questioning, intersex, asexual and other identities).
+- disability: Refers to a restriction or lack of ability (resulting from an impairment) to perform an activity in a manner or range considered normal for a human being.
+- none: Classify the message as "none" when it contains nothing related to diversity, equity, inclusion, and accessibility.
+
+### Multi-label rules:
+- Multiple subthemes may be marked as 1.
+- Mark all that apply.
+- If at least one subtheme is 1, `none` must be 0.
+- Always return all subthemes.
+- Mark with 1 when the subtheme above is present and mark with 0 when the subtheme noa is present.
+- Return ONLY valid JSON using the structure below.
+
+### Examples: (DO NOT CONTINUE THIS SECTION)
+
+Message :Found this carousel about a woman in corporate who got promoted and immediately faced rumours that she slept her way there. She stopped wearing makeup, stopped speaking in meetings, started shrinking herself just to avoid whispers.
+
+But she kept going. She's a Partner now.
+
+What's worse? The comments are full of women sharing similar stories. And it's not just men - even women in leadership aren't supporting other women. What do you think we can do to improve this?
+
+Worth a read!
+JSON response:
+{
+  "subtheme": {
+    "gender": 1,
+    "race": 0,
+    "lgbtq+": 0,
+    "disability": 0,
+    "none": 0
+  },
+  "justification": "Because it centres on gendered stereotypes and double standards applied to women’s success. The rumours sexualise and delegitimise a woman’s promotion in ways that are specific to gender, and the pressure to self-silence and minimise visibility reflects a gendered response to workplace bias. The discussion and shared experiences are explicitly about how women are treated because they are women, making gender the core axis of the issue."
+}
+
+Message: For anyone new and looking to break out in tech , stay hopeful. I personally have never come across misogyny in my workplace in all my 7 years as a SWE. I am 28 y/o black woman
+
+The only negative encounter I have ever had in tech, occurred very early in my career. There was this extremely weird lady who would say the most outlandish things to me. She made jokes about being considered “toast” in her hometown of San Jose because she didn’t act like a regular white woman (her exact words not mine). I’m cringing just thinking about it. Even went on to say she doesn’t like uptight white people. I’m thinking to myself, “This woman is crazy”. She would tell me weird crap like she has family that fought on both sides of the civil war.
+
+
+One day I decided to ignore and avoid her because she was so annoying and I just wanted to work and go home. Out of nowhere, she approaches me and literally says, “I know you’re intimidated by me because … blah blah, but I can’t help that I am put in positions of leadership because of my looks”.  I’m guessing because she’s blonde she thinks that gives her more privilege over others ? That’s a weird take, but ok lady. Funny thing is she said it in a sympathetic way…as if she was trying to show empathy. She must’ve assumed I feel oppressed as a black woman in tech. 😂 I don’t. Not even a little. 
+JSON response:
+{
+  "subtheme": {
+    "gender": 0,
+    "race": 1,
+    "lgbtqia+": 0,
+    "disability": 0,
+    "none": 0
+  },
+  "justification": "Because the experience described revolves around racial identity and racialised assumptions in the workplace. The interaction is shaped by the poster being a Black woman and by another employee projecting stereotypes, making racially charged comments, and engaging in microaggressions that are specifically tied to race rather than general interpersonal conflict."
+}
+
+Message: We rolled out accessibility improvements after disabled users reported issues with screen readers and navigation.
+JSON response:
+{
+  "subtheme": {
+    "gender": 0,
+    "race": 0,
+    "lgbtq+": 0,
+    "disability": 1,
+    "none": 0
+  },
+  "justification": "The post focuses on disability and accessibility concerns."
+}
+
+Message: Republicans make deepfake AI video of Democrat giving a kid trans hormone therapy.
+
+JSON response:
+{
+  "subtheme": {
+    "gender": 0,
+    "race": 0,
+    "lgbtq+": 1,
+    "disability": 0,
+    "none": 0
+  },
+  "justification": "The post references transgender-related issues, which fall under sexual orientation and gender identity discussions."
+}
+
+Message: Hello, I am an experienced dev (10 years or so) looking to get a job in Japan. I have really been interested in Japanese culture for a long time (movies, shows, books, etc.) and think I want to make a move... but do you all think it's a good idea? Do I need to know japanese or can I learn it while I'm there?
+Also I'm a trans woman, is that going to be an issue?
+
+JSON response:
+{
+  "subtheme": {
+    "gender": 0,
+    "race": 0,
+    "lgbtq+": 0,
+    "disability": 0,
+    "none": 1
+  },
+  "justification": "The message focuses more on addressing the person's interest in Japanese culture than on the fact that she is a transgender woman."
+}
+Message: Across the companies and teams I’ve been part of, women as a whole are underrepresented in tech, but within that group, representation doesn’t seem evenly distributed across racial and ethnic backgrounds.
+
+In my experience, White, Latina, and Black women appear disproportionately underrepresented, while East Asian (Chinese, Korean, Japanese) and South Asian (primarily Indian) women are comparatively overrepresented.
+
+For example, I’ve personally worked with more women of Pakistani and Iranian descent than Latina or Black women combined. I don't think I have ever had a Latina co-worker.
+
+This has been consistent across multiple companies and locations, which made me curious whether this reflects broader trends or is just anecdotal.
+JSON response:
+{
+  "subtheme": {
+    "gender": 1,
+    "race": 1,
+    "lgbtq+": 0,
+    "disability": 0,
+    "none": 0
+  },
+  "justification": "The post examines female representation within the technology sector through the lens of racial and ethnic intersectionality."
+}
+
+Message: I work for a stressful big tech company. My boss constantly puts me down and piles on the work. I never feel anything I do is good enough. Yet, others in my position have partners to offset but I do not. I am stressed out. I am anxious just thinking about speaking to my boss. He makes me cry and I've broken down several times over the past month. I want to go on STD. Does anyone have any recommendations on therapists or psychiatrists in the Orange County, CA region? I would greatly appreciate it! Thank you! 
+JSON response:
+{
+  "subtheme": {
+    "gender": 0,
+    "race": 0,
+    "lgbtq+": 0,
+    "disability": 1,
+    "none": 0
+  },
+  "justification": "The post discusses how the toxic environment is affecting the author's mental health, as well as hindering their professional development."
+}
+
+Message: Free Speech Union hacked by trans activists, exposing donors funding anti-Trans cases
+
+JSON response:
+{
+  "subtheme": {
+    "gender": 0,
+    "race": 0,
+    "lgbtq+": 1,
+    "disability": 0,
+    "none": 0
+  },
+  "justification": "It reveals direct funding against minority rights, attacking the pillars of inclusion and equity, and acting in direct opposition to the creation of safe and diverse environments."
+}
+
+Message: Imagine you work for a global company with alot of users like Facebook, Reddit, ,  banks, where it is important that a new project/feature can handle at least 100m request traffic daily.
+So do devs sit down discuss trade off of tech stacks and build POC to see which one is the best and go with it before start to code?
+
+
+JSON response:
+{
+  "subtheme": {
+    "gender": 0,
+    "race": 0,
+    "lgbtq+": 0,
+    "disability": 0,
+    "none": 1
+  },
+  "justification": "The text deals exclusively with software architecture and engineering methodologies, such as scalability and proofs of concept (POC)."
+}
+
+Message: The layoffs and quarterly fear about job security are exhausting. When I try to vent at work, people sometimes suggest I get married for support, which is absurd. When I go on Reddit or Blind for market insight or advice, I’m hit with anti-immigrant rhetoric and people blaming DEI. There are posts from people unemployed for months or years, or accusations that Indian, Chinese, or women managers play favorites. If I show any empathy, I get piled on. If they realize I’m a woman, it gets worse.
+With AI, there’s zero clarity. On Substack or LinkedIn, people confidently share completely opposite takes on the same tools. Some predict mass job loss, others say it’s fine. Almost no one discusses ethics or environmental impact.
+Even expressing support for Palestine, Ukraine, undocumented immigrants, or unions feels risky. It gets dismissed as political or disruptive.
+Sometimes I wonder if it’s just my algorithm. I try to protect my mental health and talk to the few other women on adjacent teams. They’re worried too, but many have partners or kids and feel forced to prioritize job security above all else. I do too, to an extent. I also wonder if the last presidential term felt this intense, or if I’ve just forgotten.
+
+JSON response:
+{
+  "subtheme": {
+    "gender": 1,
+    "race": 1,
+    "lgbtq+": 0,
+    "disability": 0,
+    "none": 0
+  },
+  "justification": "The text doesn't discuss layoffs in a generic way; it talks about how sexism suggests marriage as a way out and how racism e xenophobia turns the job search into a hostile environment for minorities and immigrants."
+}
+Message: I am a trans woman who has been a software engineer for 12 years. My egg cracked and I started my transition during my tenure at my current company, so while I'm very familiar with the tech interview process, this is the first time navigating it as someone who doesn't identify as a man. As such, I'm finding that the gender dynamics and overall culture plays a much bigger role in my evaluation of a position than it did pre-transition. My current workplace isn't perfect when it comes to these issues but it is pretty good overall. Ideally I want any company I move to next to be at least as good if not better than my current company when it comes to inclusivity, but I'm not sure how to evaluate that.
+My questions for the group: how do you evaluate the culture of a company during the interview process? Do you ask direct questions, or indirect questions? Do you just go off of vibes? Are there specific questions you like to ask? I'm curious to see how other women approach this.
+
+JSON response:
+{
+  "subtheme": {
+    "gender": 1,
+    "race": 0,
+    "lgbtq+": 1,
+    "disability": 0,
+    "none": 0
+  },
+  "justification": "The text addresses gender not merely as a biological category, but as a social construct that completely alters how a software engineer is evaluated and how she, in turn, evaluates the market. It is an account of the search for a space where both her trans identity and her womanhood are respected."
+}
+Message: My work is calling us back 3 from 1 day, which I know could be worse. But I have pretty severe ADHD that only gets to like moderate level with heavy medications probably due to the general insanity level of my life (multiple autistic kids and a spouse who works very long hours, schools are 30 minutes in opposite direction of the office to add that in). 
+Im so easily distracted by anything and everything but movement and talking around me even with headphones is the worst. WFH has been a godsend for me and the one day in the office means I spend that evening making up the work I couldn’t get down there. I absolutely cannot do that for even one more day a week. I’m strongly considering submitting for disability accommodations, 
+which I hope could include working from home most days. Would also be open to at least a quieter/less populated area at the office, but I don’t think that exists as we are moving to a much smaller space and won’t have assigned seating. Has anyone in the US done this successfully? Can you help explain the process? Do I tell my boss I plan to submit the forms or go through HR only? 
+I feel like it probably won’t be received well but I honestly don’t think I can do the job otherwise.
+
+JSON response:
+{
+  "subtheme": {
+    "gender": 0,
+    "race": 0,
+    "lgbtq+": 0,
+    "disability": 1,
+    "none": 0
+  },
+  "justification": "because it focuses on the need for functional accommodations for a neurodivergent condition that directly impacts an individual's ability to work."
+}
+
+Message: So do devs sit down discuss trade off of tech stacks and build POC to see which one is the best and go with it before start to code?
+
+JSON response:
+{
+  "subtheme": {
+    "gender": 0,
+    "race": 0,
+    "lgbtq+": 0,
+    "disability": 0,
+    "none": 1
+  },
+  "justification": "The content is strictly technical and procedural, focusing on software engineering methodology rather than the people executing it or the social environment in which it occurs."
+}
+
+### TASK (CLASSIFY ONLY THE TEXT BELOW)
+
+Now classify the following excerpt:
+
+Message excerpt: {excerpt}
+
+JSON response:

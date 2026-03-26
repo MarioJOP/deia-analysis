@@ -1,0 +1,121 @@
+You are a specialist responsible for identifying whether a Reddit post addresses polarization related to Diversity, Equity, Inclusion, and Accessibility (DEIA). Classify the post as one of three types of sentiment: pro-DEIA, anti-DEIA, or neutral.
+
+You will classify each post using only the polarization below:
+pro-DEIA: This refers to posts that support culturally heterogeneous groups.
+anti-DEIA: This refers to posts that target culturally heterogeneous groups.
+neutral: This refers to posts that do not demonstrate any stance.
+
+### Examples: (DO NOT CONTINUE THIS SECTION)
+
+Message: I originally posted these on r/30daysnewjob.
+
+Something I’ve noticed lately and it’s bothering me.
+When hiring was hot, companies talked endlessly about diversity, mentorship, and growth.
+Now that the market’s tight:
+
+1) “We don’t have bandwidth to train”
+2) “We need someone low-risk”
+3) “We need immediate impact”
+
+And somehow that always seems to exclude:
+
+1) career switchers
+2) women returning after a break
+3) people who don’t already look like the last hire
+Curious if others are seeing this too or it’s just something I'm experiencing.
+
+JSON response:
+{
+  "polarization": "pro-DEIA",
+  "justification": "The post criticizes companies for abandoning diversity and inclusion when the job market tightens. It highlights how 'low-risk' hiring practices exclude women returning from breaks and career switchers, supporting DEIA principles."
+}
+
+Message: Marco Rubio bans Calibri font at State Department for being too DEI
+
+JSON response:
+{
+  "polarization": "anti-DEIA",
+  "justification": "The post frames DEI negatively by mocking or opposing initiatives associated with diversity, equity, and inclusion."
+}
+
+Message: Hello, I am an experienced dev (10 years or so) looking to get a job in Japan. I have really been interested in Japanese culture for a long time (movies, shows, books, etc.) and think I want to make a move... but do you all think it's a good idea? Do I need to know japanese or can I learn it while I'm there?
+Also I'm a trans woman, is that going to be an issue?
+
+JSON response:
+{
+  "polarization": "Neutral",
+  "justification": "The message focuses on the person's interest in Japanese culture."
+}
+
+Message: Hi! Just wanted to get some thoughts on this. I’m meeting with my 7th and 8th person at a pretty big tech company (definitely not FAANG but they’re still pretty large) tomorrow and the scheduler just sent me the names of who I’m meeting with. Out of the 8 people I’ll have met with at the end of this, only 2 have been women. One was a product marketing manager, and the other was a data scientist.
+
+This isn’t a technical role but I’m feeling like it’s a little strange there haven’t been women in any of the senior roles for this interview loop. The 3-4 people I’m meeting with on this direct team/org that I’d be working in have been predominantly white men.
+
+I was just laid off last week in a massive company “restructuring” so I’m in need of a job but don’t necessarily want to put myself in a situation where it’s not actually a diverse team. Thoughts? Does anyone have any questions that might be good to ask about the team makeup without being too hostile? The work seems like it’d be interesting and the role is well aligned with my background. Thanks!
+
+JSON response:
+{
+  "polarization": "pro-DEIA",
+  "justification": "The post criticizes the lack of female diversity in leadership positions."
+}
+
+Message: Free Speech Union hacked by trans activists, exposing donors funding anti-Trans cases
+
+JSON response:
+{
+  "polarization": "anti-DEIA",
+  "justification": "It reveals direct funding against minority rights, attacking the pillars of inclusion and equity, and acting in direct opposition to the creation of safe and diverse environments."
+}
+
+Message: China could use microchips to disable our smart meters, MP warns
+JSON response:
+{
+  "polarization": "Neutral",
+  "justification": "Because the focus lies on national security, critical infrastructure, and cybersecurity risks associated with foreign technology."
+}
+Message: They don’t want you at the job because you’re competing with them for a promotion or because they feel like you make them look bad or that you’re getting special preferences because of “DEI hire.” 
+Maybe they make passive aggressive comments when no one else is watching or they aggressively try to ”mentor” you and  assert dominance. Either way they just don’t want you there and make your life generally unpleasant as long as no one else is watching. Your male coworkers all support this. Maybe this is just a junior engineer thing?
+JSON response:
+{
+  "polarization": "anti-DEIA",
+  "justification": "This comment is Anti-DEI because it employs the 'DEI hire' label to undermine professional merit. It describes a workplace where diversity initiatives are framed as 'special preferences,' justifying systemic hostility and exclusionary behavior from male coworkers."
+}
+Message: Slowly thinking about my next career move. And wanted to make a list of companies to start networking and keep job postings under the radar.
+
+I’m London based backend engineer and will be looking for mid level positions. 
+
+What are companies you can recommend with best:
+
+\- work life balance
+
+\- good extended maternity pay/leave
+
+\- flexible working (not more that 2 days from the office) 
+
+\- good diversity (women, poc)
+JSON response:
+{
+  "polarization": "pro-DEIA",
+  "justification": "This comment is Pro-DEI because it treats diversity and equity as essential criteria for career growth. By actively seeking companies that prioritize representation (women, POC) and inclusive benefits like extended maternity leave, the author is advocating for a workplace culture that values and supports marginalized groups."
+}
+Message: I currently work at a large, stable financial company and have almost 10 YoE. As always, the project I’m on is a bit of a mess and the decision has been made to hire more devs and make a second, sister team to the original team with a new manager, PM etc. it’s basically the 9 women to make a baby in a month scenario. It’s dubious that this is going to work and the people they have hired so far have no background in what we are building.
+My relationship with my manager is excellent- he listens to me and we connect on a personal level. I really enjoy working with him. The second teams manager is not someone I like or trust. I feel that my career will go nowhere under them. I’m genuinely terrified of reporting to them. 
+I’ve already let my manager know my desire to keep working with him, he said he is powerless. I let my skip know as well (who ultimately makes the decision) via a message. The teams are not finalized yet. I’m wondering what else I can do? Should I push harder. I have a disability that is invisible- should I push this angle? I would do literally anything to not end up with the new manager. What would you do? 
+tl;dr how to stay with your current manager and not get put on a new team, assuming a 50/50 split and an opaque, corporate decision making process.
+JSON response:
+{
+  "polarization": "Neutral",
+  "justification": "This comment is Neutral because its primary focus is professional self-preservation and team politics rather than advocacy for or against DEI principles. The mention of an 'invisible disability' is framed as a strategic 'angle' to avoid a specific manager, making it a personal tactical consideration rather than a stance on diversity policies."
+}
+Return the result strictly in the following JSON format:
+{
+  "polarization": "pro-DEIA | anti-DEIA | neutral",
+  "justification": "A brief explanation of why this classification was chosen."
+}
+
+### TASK (CLASSIFY ONLY THE TEXT BELOW)
+
+Now classify the following excerpt:
+
+Message excerpt: {excerpt}
+JSON response:

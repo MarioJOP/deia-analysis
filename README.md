@@ -59,6 +59,8 @@ All models were run locally via [Ollama](https://ollama.com):
 | One-shot | Single example provided alongside the target post |
 | Few-shot | Multiple examples to enable in-context learning |
 
+The prompts are defined in the [`prompts`](prompts) folder.
+
 ## 💻 Installation & Usage
 
 ### ✅ Requirements
@@ -189,6 +191,7 @@ DEIA_analysis/
 │   │   └── fewshot/<Model>_evaluation/
 │   └── json_problems/                  # Posts with invalid/unparseable LLM outputs
 ├── figures/                            # Generated plots and visualizations
+├── prompts/                            # prompts that were used
 ├── Run_LLMs.ipynb                      # LLM inference pipeline
 ├── RQ1_polarization_analysis.ipynb     # RQ1: polarization distribution analysis
 ├── RQ2_1_subthemes_analysis            # eda and visualizations for rq2
