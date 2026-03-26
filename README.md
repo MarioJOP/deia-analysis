@@ -156,7 +156,11 @@ Open the notebooks in order using Jupyter:
 
 ## ⚙️ Hardware Setup Used for Experimentation
 
-> **TODO**: Add your hardware specifications here (CPU, RAM, GPU).
+| Component | Specification |
+|---|---|
+| CPU | AMD Ryzen 9 9950X |
+| GPU | NVIDIA RTX 5070 Ti 16 GB |
+| RAM | 64 GB |
 
 ---
 
