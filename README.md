@@ -137,9 +137,9 @@ ollama pull falcon3:3b
 Open the notebooks in order using Jupyter:
 
 1. **`Run_LLMs.ipynb`** — runs all models against the PANDEIA dataset for all prompting strategies
-2. **`EDA.ipynb`** — exploratory data analysis and visualizations
-3. **`RQ1_polarization_analysis.ipynb`** — answers RQ1 (polarization distribution)
-4. **`RQ2_subthemes_analysis.ipynb`** — answers RQ2 (subtheme analysis)
+2. **`RQ1_polarization_analysis.ipynb`** — answers RQ1 (polarization distribution)
+3. **`RQ2_1_subthemes_analysis.ipynb`** — exploratory data analysis and visualizations for RQ2
+4. **`RQ2_2_subthemes_analysis.ipynb`** — answers RQ2 (subtheme analysis)
 5. **`RQ3_temporal_analysis.ipynb`** — answers RQ3 (temporal discourse evolution)
 
 ---
@@ -190,9 +190,9 @@ DEIA_analysis/
 │   └── json_problems/                  # Posts with invalid/unparseable LLM outputs
 ├── figures/                            # Generated plots and visualizations
 ├── Run_LLMs.ipynb                      # LLM inference pipeline (all models × all strategies)
-├── EDA.ipynb                           # Exploratory data analysis
 ├── RQ1_polarization_analysis.ipynb     # RQ1: polarization distribution analysis
-├── RQ2_subthemes_analysis.ipynb        # RQ2: DEIA subtheme analysis
+├── RQ2_1_subthemes_analysis            # eda and visualizations for rq2
+├── RQ2_2_subthemes_analysis.ipynb        # RQ2: DEIA subtheme analysis
 ├── RQ3_temporal_analysis.ipynb         # RQ3: temporal discourse evolution
 ├── requirements.txt                    # Python dependencies
 └── README.md
