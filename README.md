@@ -59,7 +59,16 @@ All models were run locally via [Ollama](https://ollama.com):
 | One-shot | Single example provided alongside the target post |
 | Few-shot | Multiple examples to enable in-context learning |
 
-The prompts are defined in the [`prompts`](prompts) folder.
+The prompts are defined in the [`prompts`](prompts) folder, organized by task:
+
+| File | Task | Strategy |
+|---|---|---|
+| [`prompts/polarization/zeroshot.txt`](prompts/polarization/zeroshot.txt) | Polarization | Zero-shot |
+| [`prompts/polarization/oneshot.txt`](prompts/polarization/oneshot.txt) | Polarization | One-shot |
+| [`prompts/polarization/fewshot.txt`](prompts/polarization/fewshot.txt) | Polarization | Few-shot |
+| [`prompts/subthemes/zeroshot.txt`](prompts/subthemes/zeroshot.txt) | Subthemes | Zero-shot |
+| [`prompts/subthemes/oneshot.txt`](prompts/subthemes/oneshot.txt) | Subthemes | One-shot |
+| [`prompts/subthemes/fewshot.txt`](prompts/subthemes/fewshot.txt) | Subthemes | Few-shot |
 
 ## 💻 Installation & Usage
 
@@ -177,27 +186,45 @@ For environments without GPU access, the following CPU-optimized models are avai
 
 ```
 DEIA_analysis/
-├── llm_results_public/                        # PANDEIA dataset and raw LLM outputs (CSV/XLSX)
-│   ├── PANDEIA_Manual_Labeling_Final.csv
-│   └── PANDEIA_RESULTS_<Model>.csv
+├── llm_results_public/                             # 📂 PANDEIA dataset and raw LLM outputs
+│   ├── PANDEIA_Manual_Labeling_Final.csv           # ⭐ Human-annotated ground truth (700 DEIA posts)
+│   ├── PANDEIA_RESULTS_Deepseek.csv                # 🤖 LLM outputs — DeepSeek-R1 7B
+│   ├── PANDEIA_RESULTS_Falcon3.csv                 # 🤖 LLM outputs — Falcon3 3B
+│   ├── PANDEIA_RESULTS_Llama.csv                   # 🤖 LLM outputs — LLaMA 3.1 8B
+│   ├── PANDEIA_RESULTS_Mistral.csv                 # 🤖 LLM outputs — Mistral 7B
+│   ├── PANDEIA_RESULTS_Phi3.csv                    # 🤖 LLM outputs — Phi3-Mini
+│   └── PANDEIA_RESULTS_Qwen.csv                    # 🤖 LLM outputs — Qwen2.5-Coder 3B
+├── prompts/                                        # 📂 Prompts used for LLM inference
+│   ├── polarization/                               # Prompts for polarization classification
+│   │   ├── zeroshot.txt
+│   │   ├── oneshot.txt
+│   │   └── fewshot.txt
+│   └── subthemes/                                  # Prompts for subtheme identification
+│       ├── zeroshot.txt
+│       ├── oneshot.txt
+│       └── fewshot.txt
 ├── results/
-│   ├── polarization/                   # Polarization evaluation results per model/strategy
+│   ├── polarization/                               # Polarization evaluation results per model/strategy
 │   │   ├── zeroshot/<Model>_evaluation/
 │   │   ├── oneshot/<Model>_evaluation/
-│   │   └── fewshot/<Model>_evaluation/
-│   ├── subthemes/                      # Subtheme evaluation results per model/strategy
+│   │   ├── fewshot/<Model>_evaluation/
+│   │   ├── polarization_comparison.xlsx
+│   │   └── results_table_polarization.xlsx
+│   ├── subthemes/                                  # Subtheme evaluation results per model/strategy
 │   │   ├── zeroshot/<Model>_evaluation/
 │   │   ├── oneshot/<Model>_evaluation/
-│   │   └── fewshot/<Model>_evaluation/
-│   └── json_problems/                  # Posts with invalid/unparseable LLM outputs
-├── figures/                            # Generated plots and visualizations
-├── prompts/                            # prompts that were used
-├── Run_LLMs.ipynb                      # LLM inference pipeline
-├── RQ1_polarization_analysis.ipynb     # RQ1: polarization distribution analysis
-├── RQ2_1_subthemes_analysis            # eda and visualizations for rq2
-├── RQ2_2_subthemes_analysis.ipynb      # RQ2: DEIA subtheme analysis
-├── RQ3_temporal_analysis.ipynb         # RQ3: temporal discourse evolution
-├── requirements.txt                    # Python dependencies
+│   │   ├── fewshot/<Model>_evaluation/
+│   │   ├── subtheme_comparison.xlsx
+│   │   └── results_table_subthemes.xlsx
+│   └── json_problems/                              # Posts with invalid/unparseable LLM outputs
+├── figures/                                        # Generated plots and visualizations
+├── rq_tables_gen/                                  # Scripts to generate results tables
+├── Run_LLMs.ipynb                                  # LLM inference pipeline
+├── RQ1_polarization_analysis.ipynb                 # RQ1: polarization distribution analysis
+├── RQ2_1_subthemes_analysis.ipynb                  # EDA and visualizations for RQ2
+├── RQ2_2_subthemes_analysis.ipynb                  # RQ2: DEIA subtheme analysis
+├── RQ3_temporal_analysis.ipynb                     # RQ3: temporal discourse evolution
+├── requirements.txt                                # Python dependencies
 └── README.md
 ```
 
