@@ -61,6 +61,24 @@ All models were run locally via [Ollama](https://ollama.com):
 
 The prompts are defined in the [`prompts`](prompts) folder.
 
+---
+
+## ⚠️ Threats to Validity
+
+**Dataset Imbalance.**
+A primary threat to validity is the imbalance of the dataset, where the *Gender* subtheme is significantly more prevalent than *Race*, *Disability*, and *LGBTQ+*. This disparity may bias models toward majority classes, limiting their ability to detect less frequent patterns and potentially inflating performance on dominant categories. To mitigate this issue, we adopted a multi-faceted evaluation strategy. First, we report class-sensitive metrics (Precision, Recall, and F1-score) at the subtheme level, allowing a more fine-grained assessment beyond overall performance. Second, we analyze results across different prompting strategies, reducing reliance on a single configuration. Third, we complement quantitative evaluation with distributional analyses (e.g., comparison with manual labeling), enabling us to identify systematic deviations in minority classes. Despite these efforts, the impact of imbalance cannot be fully eliminated and should be considered when interpreting the results.
+
+**Stochasticity and Model Variability.**
+The LLMs may exhibit non-deterministic behavior due to stochastic generation processes, which can introduce variability in the outputs across different executions. In our study, we did not explicitly fix generation parameters such as temperature, instead relying on the default configurations of each model to better reflect realistic usage scenarios. To mitigate potential variability, we adopted two complementary strategies. First, we enforced a structured output schema, which constrains the response space and reduces ambiguity in the generated outputs. Second, we implemented an integrity verification pipeline that automatically detects and reprocesses responses that do not comply with the expected format. Empirically, we observed limited variability in the outputs (four variations for *polarization* and two for *subthemes*), and a single execution per post was sufficient to obtain stable predictions. While multiple runs or self-consistency strategies could further reduce stochastic effects, our results suggest that the combination of schema enforcement and validation mechanisms is effective in ensuring consistency for the tasks considered.
+
+**Manual Labeling.**
+Although manual labeling is performed by specialists, human annotation is inherently subject to flaws. The interpretation of subthemes or polarization tones in social media texts can vary among experts. Despite efforts to mitigate this subjectivity through the application of consensus among labeled posts, the study's validity remains conditioned on the annotators' perception, which may intentionally or otherwise introduce biases.
+
+**Nature of LLMs.**
+LLMs are probabilistic rather than deterministic; even when the temperature is set to zero, response generation and subtheme classifications can be influenced by prompt ordering or subtle variations in context. This has implications for the results, as they are subject to response variability, which may limit the stability of classifications across different executions.
+
+---
+
 ## 💻 Installation & Usage
 
 ### ✅ Requirements
