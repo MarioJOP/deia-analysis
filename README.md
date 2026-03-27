@@ -23,7 +23,7 @@ It also evaluates how different prompting strategies affect LLM performance when
 
 ### 📦 Dataset — PANDEIA
 
-- **Source**: 5 technology-related subreddits collected via [PRAW](https://praw.readthedocs.io/) (Python Reddit API Wrapper)
+- **Source**: 4 technology-related subreddits collected via [PRAW](https://praw.readthedocs.io/) (Python Reddit API Wrapper)
 - **Total posts annotated**: 1,017
 - **PANDEIA dataset** (IS_DEIA = Yes): **700 posts**
 - **Annotation**: Each post independently reviewed by 2 annotators; disagreements resolved by a 3rd annotator (15 volunteers total)
@@ -35,7 +35,6 @@ It also evaluates how different prompting strategies affect LLM performance when
 | womenintech | Inclusive space for women in tech (technical and non-technical roles) |
 | cscareerquestions | Career development and industry challenges for CS professionals |
 | girlsgonewired | Women in technology sharing professional experiences |
-| technology | Technological developments and societal impact |
 | ExperiencedDevs | Experienced software engineers discussing advanced career topics |
 
 ### 🤖 Models
@@ -46,9 +45,9 @@ All models were run locally via [Ollama](https://ollama.com):
 |---|---|---|---|
 | [deepseek-r1:7b](https://ollama.com/library/deepseek-r1) | 7.62B | 4.7 GB | Q4_K_M |
 | [mistral:7b](https://ollama.com/library/mistral) | 7.25B | 4.4 GB | — |
-| [Llama-3.1-8B-Instruct](https://ollama.com/library/llama3.1) | 8.03B | 16 GB | BF16 |
+| [Llama-3.1-8B-Instruct](https://ollama.com/linbeiJiang/Llama-3.1-8B-Instruct) | 8.03B | 16 GB | BF16 |
 | [gurubot/phi3-mini-abliterated:q4](https://ollama.com/gurubot/phi3-mini-abliterated:q4) | 3.82B | 2.4 GB | Q4_K_M |
-| [qwen2.5-coder-3b-instruct-q6_k](https://ollama.com/library/qwen2.5-coder) | 3.4B | 2.8 GB | Q6_K |
+| [qwen2.5-coder:3b-instruct-q6_K](https://ollama.com/library/qwen2.5-coder:7b-instruct-q6_K) | 3.4B | 2.8 GB | Q6_K |
 | [falcon3:3b](https://ollama.com/library/falcon3) | 3.23B | 2.0 GB | Q4_K_M |
 
 ### 💬 Prompting Strategies
@@ -59,7 +58,58 @@ All models were run locally via [Ollama](https://ollama.com):
 | One-shot | Single example provided alongside the target post |
 | Few-shot | Multiple examples to enable in-context learning |
 
-The prompts are defined in the [`prompts`](prompts) folder.
+The prompts are defined in the [`prompts`](prompts) folder, organized by task:
+
+| File | Task | Strategy |
+|---|---|---|
+| [`prompts/polarization/zeroshot.txt`](prompts/polarization/zeroshot.txt) | Polarization | Zero-shot |
+| [`prompts/polarization/oneshot.txt`](prompts/polarization/oneshot.txt) | Polarization | One-shot |
+| [`prompts/polarization/fewshot.txt`](prompts/polarization/fewshot.txt) | Polarization | Few-shot |
+| [`prompts/subthemes/zeroshot.txt`](prompts/subthemes/zeroshot.txt) | Subthemes | Zero-shot |
+| [`prompts/subthemes/oneshot.txt`](prompts/subthemes/oneshot.txt) | Subthemes | One-shot |
+| [`prompts/subthemes/fewshot.txt`](prompts/subthemes/fewshot.txt) | Subthemes | Few-shot |
+
+## 📂 Data & Results
+
+### 🗂️ PANDEIA Dataset
+
+The human-annotated ground truth is located at [`llm_results_public/PANDEIA_Manual_Labeling_Final.csv`](llm_results_public/PANDEIA_Manual_Labeling_Final.csv).
+
+It contains **700 DEIA-related posts** with the following columns:
+
+| Column | Description |
+|---|---|
+| `ID` | Reddit post ID |
+| `Date` | Post date |
+| `Subreddit` | Source subreddit |
+| `Url` | Permalink to the original post |
+| `Score` | Reddit score (upvotes) |
+| `num_comment` | Number of comments |
+| `IS_DEIA?` | Whether the post is DEIA-related |
+| `Agreement_Polarization` | Consensus label: Pro-DEIA / Anti-DEIA / Neutral |
+| `Agreement_Subthemes` | Consensus subtheme(s): Gender, Race, LGBTQIA+, Disability, None |
+| `Keywords` | Keywords extracted during annotation |
+| `confidence level` | Annotator confidence (1–5) |
+| `Justification` | Annotator justification for the label |
+
+> **Note**: The columns `Title`, `Text`, and `Author` are **not distributed** due to Reddit's Terms of Service. See [Recovering post content](#recovering-post-content-from-reddit) for instructions on how to retrieve them.
+
+### 🤖 LLM Outputs
+
+The raw classification outputs produced by each model are available in [`llm_results_public/`](llm_results_public/) and can be reused in future studies without re-running the inference pipeline:
+
+| File | Model |
+|---|---|
+| [`PANDEIA_RESULTS_Deepseek.csv`](llm_results_public/PANDEIA_RESULTS_Deepseek.csv) | DeepSeek-R1 7B |
+| [`PANDEIA_RESULTS_Falcon3.csv`](llm_results_public/PANDEIA_RESULTS_Falcon3.csv) | Falcon3 3B |
+| [`PANDEIA_RESULTS_Llama.csv`](llm_results_public/PANDEIA_RESULTS_Llama.csv) | LLaMA 3.1 8B |
+| [`PANDEIA_RESULTS_Mistral.csv`](llm_results_public/PANDEIA_RESULTS_Mistral.csv) | Mistral 7B |
+| [`PANDEIA_RESULTS_Phi3.csv`](llm_results_public/PANDEIA_RESULTS_Phi3.csv) | Phi3-Mini |
+| [`PANDEIA_RESULTS_Qwen.csv`](llm_results_public/PANDEIA_RESULTS_Qwen.csv) | Qwen2.5-Coder 3B |
+
+Each file contains the model's predicted polarization and subtheme labels for all prompting strategies (zero-shot, one-shot, few-shot), aligned with the post IDs in the PANDEIA dataset.
+
+---
 
 ---
 
@@ -166,7 +216,11 @@ Open the notebooks in order using Jupyter:
 
 ## ⚙️ Hardware Setup Used for Experimentation
 
-> **TODO**: Add your hardware specifications here (CPU, RAM, GPU).
+| Component | Specification |
+|---|---|
+| CPU | AMD Ryzen 9 9950X |
+| GPU | NVIDIA RTX 5070 Ti 16 GB |
+| RAM | 64 GB |
 
 ---
 
@@ -195,27 +249,45 @@ For environments without GPU access, the following CPU-optimized models are avai
 
 ```
 DEIA_analysis/
-├── llm_results_public/                        # PANDEIA dataset and raw LLM outputs (CSV/XLSX)
-│   ├── PANDEIA_Manual_Labeling_Final.csv
-│   └── PANDEIA_RESULTS_<Model>.csv
+├── llm_results_public/                             # 📂 PANDEIA dataset and raw LLM outputs
+│   ├── PANDEIA_Manual_Labeling_Final.csv           # ⭐ Human-annotated ground truth (700 DEIA posts)
+│   ├── PANDEIA_RESULTS_Deepseek.csv                # 🤖 LLM outputs — DeepSeek-R1 7B
+│   ├── PANDEIA_RESULTS_Falcon3.csv                 # 🤖 LLM outputs — Falcon3 3B
+│   ├── PANDEIA_RESULTS_Llama.csv                   # 🤖 LLM outputs — LLaMA 3.1 8B
+│   ├── PANDEIA_RESULTS_Mistral.csv                 # 🤖 LLM outputs — Mistral 7B
+│   ├── PANDEIA_RESULTS_Phi3.csv                    # 🤖 LLM outputs — Phi3-Mini
+│   └── PANDEIA_RESULTS_Qwen.csv                    # 🤖 LLM outputs — Qwen2.5-Coder 3B
+├── prompts/                                        # 📂 Prompts used for LLM inference
+│   ├── polarization/                               # Prompts for polarization classification
+│   │   ├── zeroshot.txt
+│   │   ├── oneshot.txt
+│   │   └── fewshot.txt
+│   └── subthemes/                                  # Prompts for subtheme identification
+│       ├── zeroshot.txt
+│       ├── oneshot.txt
+│       └── fewshot.txt
 ├── results/
-│   ├── polarization/                   # Polarization evaluation results per model/strategy
+│   ├── polarization/                               # Polarization evaluation results per model/strategy
 │   │   ├── zeroshot/<Model>_evaluation/
 │   │   ├── oneshot/<Model>_evaluation/
-│   │   └── fewshot/<Model>_evaluation/
-│   ├── subthemes/                      # Subtheme evaluation results per model/strategy
+│   │   ├── fewshot/<Model>_evaluation/
+│   │   ├── polarization_comparison.xlsx
+│   │   └── results_table_polarization.xlsx
+│   ├── subthemes/                                  # Subtheme evaluation results per model/strategy
 │   │   ├── zeroshot/<Model>_evaluation/
 │   │   ├── oneshot/<Model>_evaluation/
-│   │   └── fewshot/<Model>_evaluation/
-│   └── json_problems/                  # Posts with invalid/unparseable LLM outputs
-├── figures/                            # Generated plots and visualizations
-├── prompts/                            # prompts that were used
-├── Run_LLMs.ipynb                      # LLM inference pipeline
-├── RQ1_polarization_analysis.ipynb     # RQ1: polarization distribution analysis
-├── RQ2_1_subthemes_analysis            # eda and visualizations for rq2
-├── RQ2_2_subthemes_analysis.ipynb      # RQ2: DEIA subtheme analysis
-├── RQ3_temporal_analysis.ipynb         # RQ3: temporal discourse evolution
-├── requirements.txt                    # Python dependencies
+│   │   ├── fewshot/<Model>_evaluation/
+│   │   ├── subtheme_comparison.xlsx
+│   │   └── results_table_subthemes.xlsx
+│   └── json_problems/                              # Posts with invalid/unparseable LLM outputs
+├── figures/                                        # Generated plots and visualizations
+├── rq_tables_gen/                                  # Scripts to generate results tables
+├── Run_LLMs.ipynb                                  # LLM inference pipeline
+├── RQ1_polarization_analysis.ipynb                 # RQ1: polarization distribution analysis
+├── RQ2_1_subthemes_analysis.ipynb                  # EDA and visualizations for RQ2
+├── RQ2_2_subthemes_analysis.ipynb                  # RQ2: DEIA subtheme analysis
+├── RQ3_temporal_analysis.ipynb                     # RQ3: temporal discourse evolution
+├── requirements.txt                                # Python dependencies
 └── README.md
 ```
 
@@ -225,5 +297,5 @@ DEIA_analysis/
 
 This repository uses two licenses depending on the type of content:
 
-- **Code** (notebooks, scripts): [MIT License](LICENCE-CODE.txt) — Copyright (c) 2026 JOANNE CARNEIRO
+- **Code** (notebooks, scripts): [MIT License](LICENCE-CODE.txt) — Copyright (c) 2026 Anonymous
 - **Dataset** (PANDEIA, `llm_results_public/`): [Creative Commons Attribution 4.0 International](LICENSE-DATASET.txt)
