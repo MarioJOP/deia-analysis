@@ -279,5 +279,5 @@ DEIA_analysis/
 
 This repository uses two licenses depending on the type of content:
 
-- **Code** (notebooks, scripts): [MIT License](LICENCE-CODE.txt) — Copyright (c) 2026 JOANNE CARNEIRO
+- **Code** (notebooks, scripts): [MIT License](LICENCE-CODE.txt) — Copyright (c) 2026 Anonymous
 - **Dataset** (PANDEIA, `llm_results_public/`): [Creative Commons Attribution 4.0 International](LICENSE-DATASET.txt)
